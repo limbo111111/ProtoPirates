@@ -14,7 +14,9 @@
 #define HONDA_STATIC_PREAMBLE_ALTERNATING_COUNT 160
 #define HONDA_STATIC_PREAMBLE_MAX_TRANSITIONS 19
 
+#ifdef ENABLE_EMULATE_FEATURE
 static const uint8_t honda_static_encoder_button_map[4] = {0x02, 0x04, 0x08, 0x05};
+#endif
 static const char* const honda_static_button_names[9] = {
     "Lock",
     "Unlock",
@@ -109,6 +111,7 @@ static uint32_t honda_static_get_bits_u32(const uint8_t* data, uint8_t start, ui
     return value;
 }
 
+#ifdef ENABLE_EMULATE_FEATURE
 static void honda_static_set_bits(uint8_t* data, uint8_t start, uint8_t count, uint32_t value) {
     for(uint8_t i = 0; i < count; i++) {
         const uint8_t bit_index = start + i;
@@ -124,6 +127,7 @@ static void honda_static_set_bits(uint8_t* data, uint8_t start, uint8_t count, u
         }
     }
 }
+#endif
 
 static uint8_t honda_static_level_u8(bool level) {
     return level ? 1U : 0U;
@@ -152,6 +156,7 @@ static bool honda_static_is_valid_serial(uint32_t serial) {
     return (serial != 0U) && (serial != 0x0FFFFFFFU);
 }
 
+#ifdef ENABLE_EMULATE_FEATURE
 static uint8_t honda_static_encoder_remap_button(uint8_t button) {
     if(button < 2U) {
         return 1U;
@@ -163,6 +168,7 @@ static uint8_t honda_static_encoder_remap_button(uint8_t button) {
 
     return 1U;
 }
+#endif
 
 static const char* honda_static_button_name(uint8_t button) {
     if((button >= 1U) && (button <= COUNT_OF(honda_static_button_names))) {
@@ -219,6 +225,7 @@ static uint64_t honda_static_pack_compact(const HondaStaticFields* fields) {
     return honda_static_bytes_to_u64_be(compact);
 }
 
+#ifdef ENABLE_EMULATE_FEATURE
 static void honda_static_build_packet_bytes(const HondaStaticFields* fields, uint8_t packet[8]) {
     memset(packet, 0, 8);
 
@@ -233,6 +240,7 @@ static void honda_static_build_packet_bytes(const HondaStaticFields* fields, uin
 
     honda_static_set_bits(packet, 56, 8, checksum);
 }
+#endif
 
 static bool honda_static_validate_forward_packet(const uint8_t packet[9], HondaStaticFields* fields) {
     const uint8_t button = honda_static_get_bits(packet, 0, 4);
