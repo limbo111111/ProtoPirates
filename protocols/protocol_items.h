@@ -19,7 +19,6 @@
 #include "mitsubishi_v0.h"
 #include "porsche_touareg.h"
 #include "subaru.h"
-#include "suzuki.h"
 #include "vag.h"
 #include "star_line.h"
 #include "psa.h"
