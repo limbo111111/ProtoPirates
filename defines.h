@@ -5,7 +5,7 @@
 
 #define ENABLE_EMULATE_FEATURE
 
-//#define REMOVE_LOGS
+#define REMOVE_LOGS
 
 #ifdef REMOVE_LOGS
 // Undefine existing macros
