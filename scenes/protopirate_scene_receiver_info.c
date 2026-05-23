@@ -116,7 +116,7 @@ static void protopirate_receiver_info_build_normal_widget(ProtoPirateApp* app) {
             app);
     } else
 #ifdef ENABLE_EMULATE_FEATURE
-    if(app->emulate_feature_enabled && !app->emulate_disabled_for_loaded) {
+        if(app->emulate_feature_enabled && !app->emulate_disabled_for_loaded) {
         widget_add_button_element(
             app->widget,
             GuiButtonTypeLeft,
@@ -155,9 +155,9 @@ static void protopirate_scene_receiver_info_widget_callback(
                    app, ProtoPiratePsaBfContextReceiverInfo)) {
                 view_dispatcher_send_custom_event(
                     app->view_dispatcher, ProtoPirateCustomEventReceiverInfoBruteforceStart);
-            } else
+            }
 #ifdef ENABLE_EMULATE_FEATURE
-            if(app->emulate_feature_enabled && !app->emulate_disabled_for_loaded) {
+            else if(app->emulate_feature_enabled && !app->emulate_disabled_for_loaded) {
                 view_dispatcher_send_custom_event(
                     app->view_dispatcher, ProtoPirateCustomEventReceiverInfoEmulate);
             }
@@ -207,8 +207,7 @@ bool protopirate_scene_receiver_info_on_event(void* context, SceneManagerEvent e
             if(consumed) return true;
         }
         if(event.type == SceneManagerEventTypeBack &&
-           app->psa_bf_plugin->on_scene_event(
-               app, ProtoPiratePsaBfContextReceiverInfo, event)) {
+           app->psa_bf_plugin->on_scene_event(app, ProtoPiratePsaBfContextReceiverInfo, event)) {
             return true;
         }
     }
